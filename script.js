@@ -35,3 +35,18 @@ function syncStatus(event, guest) {
         Logger.log('Status updated:' + event.getTitle() + ' (' + event.getStartTime() + ')');
     }
 }
+
+function invite(event) {
+    event.addGuest(EMAIL_TO_INVITE);
+    Logger.log('Invited: ' + event.getTitle() + ' (' + event.getStartTime() + ')');
+}
+
+function notify(message) {
+    var data = { 'text': message };
+    var options = {
+        'method': 'post',
+        'contentType': 'application/json',
+        'payload': JSON.stringify(data)
+    };
+    UrlFetchApp.fetch(SLACK_WEBHOOK_URL, options);
+}
